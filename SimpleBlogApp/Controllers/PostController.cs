@@ -1,10 +1,12 @@
 ﻿using System.CodeDom;
 using Azure.Core;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using SimpleBlogApp.Abstraction.Interface;
 using SimpleBlogApp.Abstraction.Request;
 using SimpleBlogApp.API.Communication;
+using SimpleBlogApp.Domain.Entities;
 
 namespace SimpleBlogApp.API.Controllers
 {
@@ -12,9 +14,10 @@ namespace SimpleBlogApp.API.Controllers
     [Route("api/[controller]")]
     public class PostController : ControllerBase
     {
-        public PostController()
+        private readonly IHttpContextAccessor _acessor;
+        public PostController(IHttpContextAccessor acessor)
         {
-                
+            _acessor = acessor;
         }
         [HttpGet("GetPostsByUser")]
         public async Task<IActionResult> Get([FromServices] IPostClientService service,
@@ -36,10 +39,14 @@ namespace SimpleBlogApp.API.Controllers
         {
             try
             {
-                WebSocketNotificationManager.Instance.SendClientNotification(
-                    $"A new Post was created from userid {request.UserId}");
+                if (_acessor.HttpContext.User.Identity.IsAuthenticated)
+                {
+                    WebSocketNotificationManager.Instance.SendClientNotification(
+                         $"A new Post was created from userid {request.UserId}");
 
-                return Ok(await service.CreatePost(request));
+                    return Ok(await service.CreatePost(request));
+                }
+                return Ok("Warning: It's no possible to create Post. User is not Authenticated.");
             }
             catch (Exception e)
             {
@@ -54,7 +61,13 @@ namespace SimpleBlogApp.API.Controllers
         {
             try
             {
-                return Ok(await service.DeletePost(postId));
+                if (_acessor.HttpContext.User.Identity.IsAuthenticated)
+                {
+                    return Ok(await service.DeletePost(postId));
+                }
+
+                return Ok("Warning: It's no possible to delete Post. User is not Authenticated.");
+                
             }
             catch (Exception e)
             {
@@ -67,7 +80,13 @@ namespace SimpleBlogApp.API.Controllers
         {
             try
             {
-                return Ok(await service.UpdatePost(request));
+                if (_acessor.HttpContext.User.Identity.IsAuthenticated)
+                {
+                    return Ok(await service.UpdatePost(request));
+                }
+
+                return Ok("Warning: It's no possible to update Post. User is not Authenticated.");
+               
             }
             catch (Exception e)
             {

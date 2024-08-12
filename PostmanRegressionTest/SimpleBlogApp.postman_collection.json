@@ -12,6 +12,9 @@
 				{
 					"name": "Create User",
 					"request": {
+						"auth": {
+							"type": "noauth"
+						},
 						"method": "POST",
 						"header": [
 							{
@@ -60,6 +63,11 @@
 							{
 								"key": "Content-Type",
 								"value": "application/json"
+							},
+							{
+								"key": "Cookie",
+								"value": "{{auth}}",
+								"type": "text"
 							}
 						],
 						"body": {
@@ -90,10 +98,15 @@
 							{
 								"key": "accept",
 								"value": "*/*"
+							},
+							{
+								"key": "Cookie",
+								"value": "{{auth}}",
+								"type": "text"
 							}
 						],
 						"url": {
-							"raw": "https://localhost:44309/api/Post/DeletePost?postId={{portIdDelete}}",
+							"raw": "https://localhost:44309/api/Post/DeletePost?postId={{postIdDelete}}&Cookie={{auth}}",
 							"protocol": "https",
 							"host": [
 								"localhost"
@@ -107,7 +120,11 @@
 							"query": [
 								{
 									"key": "postId",
-									"value": "{{portIdDelete}}"
+									"value": "{{postIdDelete}}"
+								},
+								{
+									"key": "Cookie",
+									"value": "{{auth}}"
 								}
 							]
 						},
@@ -127,6 +144,11 @@
 							{
 								"key": "Content-Type",
 								"value": "application/json"
+							},
+							{
+								"key": "Cookie",
+								"value": "{{auth}}",
+								"type": "text"
 							}
 						],
 						"body": {
@@ -166,7 +188,7 @@
 							}
 						],
 						"url": {
-							"raw": "https://localhost:44309/api/Post/GetPostsByUser?userId={{userIdGet}}",
+							"raw": "https://localhost:44309/api/Post/GetPostsByUser?userId={{userIdGet}}&Cookie={{auth}}",
 							"protocol": "https",
 							"host": [
 								"localhost"
@@ -181,6 +203,10 @@
 								{
 									"key": "userId",
 									"value": "{{userIdGet}}"
+								},
+								{
+									"key": "Cookie",
+									"value": "{{auth}}"
 								}
 							]
 						},
@@ -195,6 +221,39 @@
 			"item": [
 				{
 					"name": "Login",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"// *** Util Functions *** //\r",
+									"utilFunctions = {\r",
+									"    SetAuthCookie: function(){\r",
+									"        console.log(\"Response valor\")\r",
+									"        var jsonData = pm.response.json();\r",
+									"        console.log(jsonData);\r",
+									"        pm.collectionVariables.set(\"auth\",pm.response.json().authToken);\r",
+									"\r",
+									"    }\r",
+									"}\r",
+									"\r",
+									"utilFunctions.SetAuthCookie();"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
 					"request": {
 						"method": "GET",
 						"header": [
@@ -283,27 +342,31 @@
 	"variable": [
 		{
 			"key": "userid",
-			"value": "\"9bf5e58f-6582-4b29-a318-032872855a4e\"",
+			"value": "\"d1b2892f-a95d-4ea4-91a6-122d7873296f\"",
 			"type": "string"
 		},
 		{
-			"key": "portIdDelete",
-			"value": "d96b6877-da10-4f8d-85eb-90d454fd90c0"
+			"key": "postIdDelete",
+			"value": "8246ab56-83d8-4566-bf37-85fe146ca08b"
 		},
 		{
 			"key": "postIdUpdate",
-			"value": "\"d96b6877-da10-4f8d-85eb-90d454fd90c0\"",
+			"value": "\"efdb30e5-bbee-4027-baae-6fc047143b93\"",
 			"type": "string"
 		},
 		{
 			"key": "postIdGet",
-			"value": "55b330d1-623a-49a6-919a-116294095d2d",
+			"value": "",
 			"type": "string"
 		},
 		{
 			"key": "userIdGet",
-			"value": "9bf5e58f-6582-4b29-a318-032872855a4e",
+			"value": "d1b2892f-a95d-4ea4-91a6-122d7873296f",
 			"type": "string"
+		},
+		{
+			"key": "auth",
+			"value": ""
 		}
 	]
 }

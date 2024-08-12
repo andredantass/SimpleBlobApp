@@ -15,10 +15,12 @@ namespace SimpleBlogApp.API.Authentication
             _acessor = acessor;
         }
 
-        public void SignIn(string userName)
+        public string SignIn(string userName)
         {
             var protectorSession = _idp.CreateProtector("auth-cookie");
-            _acessor.HttpContext!.Response.Headers["set-cookie"] = $"auth={protectorSession.Protect($"usr:{userName}")}";
+            var authCookie = $"auth={protectorSession.Protect($"usr:{userName}")}";
+            _acessor.HttpContext!.Response.Headers["set-cookie"] = authCookie;
+            return authCookie;
         }
 
         public void SignOff()

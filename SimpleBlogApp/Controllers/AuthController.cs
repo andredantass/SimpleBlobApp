@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SimpleBlogApp.Abstraction.Interface;
 using SimpleBlogApp.Abstraction.Request;
+using SimpleBlogApp.Abstraction.Response;
 using SimpleBlogApp.API.Authentication;
 using System.Security.Principal;
 
@@ -35,8 +36,10 @@ namespace SimpleBlogApp.API.Controllers
                     return BadRequest("Login and Password are wrong or the User not exists!");
                 else
                 {
-                    _authService.SignIn(result.Name);
-                    return Ok("User Logged Successfully!");
+                    return Ok(new AuthResponse()
+                    {
+                        AuthToken = _authService.SignIn(result.Name)
+                    });
                 }
 
             }

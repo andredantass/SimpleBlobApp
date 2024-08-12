@@ -20,7 +20,7 @@ namespace SimpleBlogApp.API.Controllers
             _authService = authService;
             this.context = context; 
         }
-
+         
         [HttpPost("CreateUser")]
         public async Task<IActionResult> Post([FromServices] IUserClientService service,
             [FromBody] UserRequest request)
