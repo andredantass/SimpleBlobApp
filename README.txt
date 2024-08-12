@@ -1,3 +1,12 @@
+Este Projeto foi feito utilizando os conceitos de SOLID, assim como uma arquitetura de camada utilizando as melhores praticas 
+do Clean Architecture. As Tecnologias e conceitos utilizados para a criação dessa API foram:
+
+Entity Framework
+Repository Pattern
+Code First Concept
+Microsoft.AspNet.WebSocket 
+ClaimIdentity
+
 Siga os passos para rodar a aplicação. 
 Tanto o Client que consome o WebSocket quanto o API foram desenvolvidos no Visual Studio 2022 e estão na 
 mesma solution, para facilitar no momento de roda-los.
@@ -57,3 +66,9 @@ ______________________________________________________________
 Ambos os projetos irão rodar em paralelo, verificar se a Api rodara na porta https://localhost:44348/,
 caso na maquina aonde sera feito o teste essa porta estiver ocupada devera alterar no arquivo
 de configuracao
+
+Executando Endpoints e WebSocket Client
+______________________________________________________________
+
+Dentro da pasta do projeto você irá encontrar um outro documento, chamado: RegrasExecucao_WebSocket_Postman. 
+Siga as intruções desse documento para executar o projeto Postman e consumir os endpoints da API.
