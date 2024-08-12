@@ -1,0 +1,309 @@
+{
+	"info": {
+		"_postman_id": "ac4ff9e5-32a3-41fb-b54c-2aadfc8a9e65",
+		"name": "SimpleBlogApp",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "13266293"
+	},
+	"item": [
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "Create User",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "accept",
+								"value": "*/*"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"email\": \"teste@outlook.com\",\r\n  \"name\": \"Roberto\",\r\n  \"secondName\": \"Silva\",\r\n  \"document\": \"34003044\",\r\n  \"nickname\": \"robertoSilva\",\r\n  \"password\": \"1234567\"\r\n}"
+						},
+						"url": {
+							"raw": "https://localhost:44309/api/User/CreateUser",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44309",
+							"path": [
+								"api",
+								"User",
+								"CreateUser"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Post",
+			"item": [
+				{
+					"name": "Create Post",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "accept",
+								"value": "*/*"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"userId\": {{userid}},\r\n  \"title\": \"New Post 1\",\r\n  \"content\": \"New Post 1 Content\",\r\n  \"postId\":\"\"\r\n}"
+						},
+						"url": {
+							"raw": "https://localhost:44309/api/Post/CreatePost",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44309",
+							"path": [
+								"api",
+								"Post",
+								"CreatePost"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Post",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "accept",
+								"value": "*/*"
+							}
+						],
+						"url": {
+							"raw": "https://localhost:44309/api/Post/DeletePost?postId={{portIdDelete}}",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44309",
+							"path": [
+								"api",
+								"Post",
+								"DeletePost"
+							],
+							"query": [
+								{
+									"key": "postId",
+									"value": "{{portIdDelete}}"
+								}
+							]
+						},
+						"description": "Generated from cURL: curl -X 'DELETE' \\\r\n  'https://localhost:44309/api/Post?postId=7e93cbd2-f388-47b6-bb2b-dbc5660b9144' \\\r\n  -H 'accept: */*'"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Post",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "accept",
+								"value": "*/*"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"postId\": {{postIdUpdate}},\r\n  \"userId\": {{userid}},\r\n  \"title\": \"Changing again the Title\",\r\n  \"content\": \"Changing again the Content\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:44309/api/Post/UpdatePost",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44309",
+							"path": [
+								"api",
+								"Post",
+								"UpdatePost"
+							]
+						},
+						"description": "Generated from cURL: curl -X 'PATCH' \\\r\n  'https://localhost:44309/api/Post' \\\r\n  -H 'accept: */*' \\\r\n  -H 'Content-Type: application/json' \\\r\n  -d '{\r\n  \"postId\": \"a0a769f1-ca32-4c6a-ac7f-0d2881fc2389\",\r\n  \"userId\": \"5a664545-374c-4d91-bb63-eb3db69a93f2\",\r\n  \"title\": \"Changing again the Title\",\r\n  \"content\": \"Changing again the Content\"\r\n}'"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Posts",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "accept",
+								"value": "*/*"
+							}
+						],
+						"url": {
+							"raw": "https://localhost:44309/api/Post/GetPostsByUser?userId={{userIdGet}}",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44309",
+							"path": [
+								"api",
+								"Post",
+								"GetPostsByUser"
+							],
+							"query": [
+								{
+									"key": "userId",
+									"value": "{{userIdGet}}"
+								}
+							]
+						},
+						"description": "Generated from cURL: curl -X 'GET' \\\r\n  'https://localhost:44309/api/Post/GetPostsByUser?userId=5a664545-374c-4d91-bb63-eb3db69a93f2' \\\r\n  -H 'accept: */*'"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Login",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "accept",
+								"value": "*/*"
+							}
+						],
+						"url": {
+							"raw": "https://localhost:44309/api/Auth/Login?nickName=robertoSilva&password=1234567",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44309",
+							"path": [
+								"api",
+								"Auth",
+								"Login"
+							],
+							"query": [
+								{
+									"key": "nickName",
+									"value": "robertoSilva"
+								},
+								{
+									"key": "password",
+									"value": "1234567"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "LogOff",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "accept",
+								"value": "*/*"
+							}
+						],
+						"url": {
+							"raw": "https://localhost:44309/api/Auth/LogOff",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "44309",
+							"path": [
+								"api",
+								"Auth",
+								"LogOff"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "userid",
+			"value": "\"9bf5e58f-6582-4b29-a318-032872855a4e\"",
+			"type": "string"
+		},
+		{
+			"key": "portIdDelete",
+			"value": "d96b6877-da10-4f8d-85eb-90d454fd90c0"
+		},
+		{
+			"key": "postIdUpdate",
+			"value": "\"d96b6877-da10-4f8d-85eb-90d454fd90c0\"",
+			"type": "string"
+		},
+		{
+			"key": "postIdGet",
+			"value": "55b330d1-623a-49a6-919a-116294095d2d",
+			"type": "string"
+		},
+		{
+			"key": "userIdGet",
+			"value": "9bf5e58f-6582-4b29-a318-032872855a4e",
+			"type": "string"
+		}
+	]
+}
